@@ -1,28 +1,25 @@
-/* Renk Ayarları */
+/* 1. Değişkenleri ve Temaları Tanımlıyoruz */
 :root {
     --bg-color: #0b0e14;
     --text-color: #ffffff;
     --card-bg: rgba(255, 255, 255, 0.05);
     --filter-bg: #111827;
+    --select-bg: #1f2937;
+    --subtitle-color: #9ca3af;
+    --nav-link-color: #9ca3af;
 }
 
-/* Açık Tema Renkleri */
 .light-mode {
     --bg-color: #f3f4f6;
-    --text-color: #111827;
-    --card-bg: rgba(0, 0, 0, 0.05);
-    --filter-bg: #ffffff;
+    --text-color: #111827; /* Açık modda yazılar koyu gri/siyah olsun */
+    --card-bg: #ffffff;
+    --filter-bg: #e5e7eb;
+    --select-bg: #ffffff;
+    --subtitle-color: #4b5563;
+    --nav-link-color: #1f2937;
 }
 
-/* Renkleri Değişkenlere Bağlıyoruz */
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s; /* Renk geçişi yumuşak olsun */
-}
-
-.filter-box { background: var(--filter-bg); }
-.result-card { background: var(--card-bg); }
+/* 2. Genel Ayarlar */
 * {
     margin: 0;
     padding: 0;
@@ -31,21 +28,25 @@ body {
 }
 
 body {
-    background-color: #0b0e14;
-    color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-color); /* Tüm vücut yazı rengi artık değişken! */
     min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
     display: flex;
     flex-direction: column;
 }
 
+/* Overlay Açık Modda Görünmesin */
 .overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: radial-gradient(circle at center, rgba(31, 41, 55, 0.1) 0%, #0b0e14 100%);
+    background: radial-gradient(circle at center, rgba(31, 41, 55, 0.2) 0%, #0b0e14 100%);
     z-index: 1;
 }
+.light-mode .overlay { display: none; }
 
+/* 3. Navbar Ayarları */
 .navbar {
     position: relative;
     z-index: 10;
@@ -55,24 +56,25 @@ body {
 }
 
 .nav-links a {
-    color: #9ca3af;
+    color: var(--nav-link-color); /* Menü yazıları da değişsin */
     text-decoration: none;
     margin-right: 20px;
-    font-size: 0.9rem;
+    transition: 0.3s;
 }
 
-.nav-links a.active { color: white; font-weight: 600; }
+.nav-links a.active, .nav-links a:hover {
+    color: var(--text-color);
+}
 
+/* 4. Hero ve Yazılar */
 .hero {
     position: relative;
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-grow: 1;
+    padding: 60px 20px;
     text-align: center;
-    padding: 40px 20px;
 }
 
 .logo-text {
@@ -84,54 +86,63 @@ body {
     display: inline-block;
 }
 
-.subtitle { color: #9ca3af; margin: 20px 0; }
-.subtitle span { color: #a78bfa; font-weight: 600; }
-
-.main-actions { margin-bottom: 30px; }
-
-.btn-primary {
-    background: linear-gradient(90deg, #6366f1, #a855f7);
-    border: none; color: white; padding: 12px 25px;
-    border-radius: 10px; cursor: pointer; margin-right: 10px;
+.subtitle {
+    color: var(--subtitle-color); /* Alt başlık rengi değişken oldu */
+    margin: 20px 0;
 }
 
-.btn-secondary {
-    background: #1f2937; border: 1px solid #374151;
-    color: white; padding: 12px 25px; border-radius: 10px; cursor: pointer;
-}
-
+/* 5. Filtreleme ve Seçimler */
 .filter-box {
-    background: #111827; padding: 10px;
-    border-radius: 12px; display: flex; gap: 10px;
-    margin-bottom: 40px; border: 1px solid #1f2937;
+    background: var(--filter-bg);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+    border: 1px solid var(--select-bg);
 }
 
-select, .btn-suggest {
-    padding: 10px 15px; background: #1f2937;
-    color: white; border: none; border-radius: 8px;
+select {
+    padding: 12px 20px;
+    background: var(--select-bg);
+    color: var(--text-color); /* Kutuların içindeki yazılar da değişsin */
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
 }
 
-.btn-suggest { background: #4f46e5; font-weight: 600; cursor: pointer; }
+.btn-suggest {
+    background: #4f46e5;
+    color: white; /* Bu buton her zaman beyaz yazılı kalsın, daha şık durur */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
 
-/* Film Kartı Tasarımı */
+/* 6. Film Sonuç Kartı */
 .result-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px; padding: 25px;
-    display: flex; gap: 20px; max-width: 650px;
-    text-align: left; margin-bottom: 30px;
-    animation: fadeIn 0.5s ease;
+    background: var(--card-bg);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 700px;
+    margin-top: 30px;
+    display: none;
+    gap: 25px;
+    text-align: left;
+    color: var(--text-color); /* Kart içindeki film adı ve açıklaması değişsin */
 }
 
-#movie-poster { width: 180px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-.movie-info h2 { color: #a78bfa; margin-bottom: 10px; font-size: 1.5rem; }
-.movie-info p { font-size: 0.9rem; color: #d1d5db; line-height: 1.5; }
+#movie-poster { width: 180px; border-radius: 12px; }
+.movie-info h2 { color: #a78bfa; margin-bottom: 15px; }
 
-.api-note {
-    background: rgba(31, 41, 55, 0.4);
-    padding: 15px; border-radius: 8px;
-    border-left: 4px solid #3b82f6; font-size: 0.8rem; color: #9ca3af;
+/* Tema Değiştirme Butonu Tasarımı */
+.dark-mode-btn {
+    background: var(--filter-bg);
+    color: var(--text-color);
+    border: 1px solid var(--subtitle-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
 }
-
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
