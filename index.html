@@ -40,43 +40,50 @@
         </div>
 
         <div class="filter-box">
-<div class="filter-box">
-    <select id="genre-select">
-        <option value="">Tür seçiniz</option>
-        <option value="28">Aksiyon</option>
-        <option value="12">Macera</option>
-        <option value="16">Animasyon</option>
-        <option value="35">Komedi</option>
-        <option value="80">Suç</option>
-        <option value="99">Belgesel</option>
-        <option value="18">Dram</option>
-        <option value="10751">Aile</option>
-        <option value="14">Fantastik</option>
-        <option value="36">Tarih</option>
-        <option value="27">Korku</option>
-        <option value="10402">Müzik</option>
-        <option value="9648">Gizem</option>
-        <option value="10749">Romantik</option>
-        <option value="878">Bilim Kurgu</option>
-        <option value="53">Gerilim</option>
-        <option value="10752">Savaş</option>
-        <option value="37">Western</option>
+            <select id="genre-select">
+                <option value="">Tür seçiniz</option>
+                <option value="28">Aksiyon</option>
+                <option value="12">Macera</option>
+                <option value="16">Animasyon</option>
+                <option value="35">Komedi</option>
+                <option value="80">Suç</option>
+                <option value="99">Belgesel</option>
+                <option value="18">Dram</option>
+                <option value="10751">Aile</option>
+                <option value="14">Fantastik</option>
+                <option value="36">Tarih</option>
+                <option value="27">Korku</option>
+                <option value="10402">Müzik</option>
+                <option value="9648">Gizem</option>
+                <option value="10749">Romantik</option>
+                <option value="878">Bilim Kurgu</option>
+                <option value="53">Gerilim</option>
+                <option value="10752">Savaş</option>
+                <option value="37">Western</option>
             </select>
             
             <select id="platform-select">
-<option value="">Platform seçiniz</option>
-        <option value="netflix">Netflix</option>
-        <option value="disney">Disney+</option>
-        <option value="prime">Prime Video</option>
-        <option value="hbo">HBO Max</option>
-        <option value="apple">Apple TV+</option>
-        <option value="exxen">Exxen</option>
-        <option value="mubi">Mubi</option>
-        <option value="blutv">BluTV</option>
-        <option value="gain">Gain</option>
+                <option value="">Platform seçiniz</option>
+                <option value="netflix">Netflix</option>
+                <option value="disney">Disney+</option>
+                <option value="prime">Prime Video</option>
+                <option value="hbo">HBO Max</option>
+                <option value="apple">Apple TV+</option>
+                <option value="exxen">Exxen</option>
+                <option value="mubi">Mubi</option>
+                <option value="blutv">BluTV</option>
+                <option value="gain">Gain</option>
             </select>
 
             <button id="suggest-btn" class="btn-suggest">Film öner</button>
+        </div>
+
+        <div id="result-container" class="result-card" style="display: none;">
+            <img id="movie-poster" src="" alt="Film Afişi">
+            <div class="movie-info">
+                <h2 id="movie-title"></h2>
+                <p id="movie-desc"></p>
+            </div>
         </div>
 
         <div class="api-note">
