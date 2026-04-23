@@ -3,36 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popcorn Time | Film Öner</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <title>FilmÖneri - Keşfetmeye Başla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="overlay"></div> 
-    
-    <div class="container">
-        <h1 class="main-title">FİLM ÖNER</h1>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#" class="active">Ana Sayfa</a>
+            <a href="#">Arama</a>
+            <a href="#">Film Listeleri</a>
+            <a href="#">AI Önerileri</a>
+        </div>
+        <div class="nav-auth">
+            <button class="dark-mode-toggle">Koyu Tema</button>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="logo-area">
+            <span class="sparkle">✨</span>
+            <h1 class="logo-text">FilmÖneri</h1>
+            <span class="sparkle">✨</span>
+        </div>
         
-        <div class="genre-container">
-            <button class="genre-btn active" data-genre="all">Hepsi</button>
-            <button class="genre-btn" data-genre="53">Gerilim</button>
-            <button class="genre-btn" data-genre="27">Korku</button>
-            <button class="genre-btn" data-genre="28">Aksiyon</button>
+        <p class="subtitle">
+            Türkiye'nin en kapsamlı film öneri platformu. Tür ve platform seçerek <br>
+            <span>kişiselleştirilmiş film önerileri</span> alın.
+        </p>
+
+        <div class="main-actions">
+            <button class="btn-primary">✨ Film Önerileri</button>
+            <button class="btn-secondary">🔍 Platform Araması</button>
         </div>
 
-        <div id="movie-card" class="card">
-            <div class="poster-wrapper">
-                <img id="poster" src="https://via.placeholder.com/200x300?text=Film+Bekleniyor" alt="Film Afişi">
-            </div>
-            <div class="info">
-                <h2 id="title">Hangi Filmi İzlesek?</h2>
-                <p id="overview">Türünü seç ve butona bas, senin için en iyi filmi bulalım.</p>
-                <div id="rating-badge"></div>
+        <div class="filter-box">
+            <select id="genre-select">
+                <option value="">Tür seçiniz</option>
+                <option value="27">Korku</option>
+                <option value="53">Gerilim</option>
+                <option value="28">Aksiyon</option>
+            </select>
+            
+            <select id="platform-select">
+                <option value="">Platform seçiniz</option>
+                <option value="netflix">Netflix</option>
+                <option value="disney">Disney+</option>
+                <option value="prime">Prime Video</option>
+            </select>
+
+            <button id="suggest-btn" class="btn-suggest">Film öner</button>
+        </div>
+
+        <div id="result-container" class="result-card" style="display: none;">
+            <img id="movie-poster" src="" alt="">
+            <div class="movie-info">
+                <h2 id="movie-title"></h2>
+                <p id="movie-desc"></p>
             </div>
         </div>
 
-        <button id="suggest-btn">BANA ÖNERİ YAP!</button>
-    </div>
+        <div class="api-note">
+            <p>Film verileri <strong>The Movie Database (TMDb)</strong> API'si kullanılarak sağlanmaktadır.</p>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
