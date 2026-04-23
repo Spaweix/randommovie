@@ -51,3 +51,22 @@ function showMovie(movie) {
     resultContainer.style.display = 'flex';
     resultContainer.scrollIntoView({ behavior: 'smooth' });
 }
+const themeToggle = document.getElementById('theme-toggle');
+
+// Sayfa ilk açıldığında hafızayı kontrol et
+if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+    themeToggle.innerText = 'Koyu Tema';
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    
+    if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerText = 'Koyu Tema'; // Butonda 'Koyu Tema'ya dön yazsın
+    } else {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerText = 'Açık Tema'; // Butonda 'Açık Tema'ya dön yazsın
+    }
+});
