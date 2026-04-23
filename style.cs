@@ -1,115 +1,135 @@
-/* Genel Ayarlar */
+:root {
+    --bg-color: #0b0e14;
+    --card-bg: #161b22;
+    --primary-gradient: linear-gradient(90deg, #8a2be2, #4b0082);
+    --text-color: #ffffff;
+    --secondary-text: #9ca3af;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    /* Arka plan için kaliteli bir sinema görseli */
-    background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-    background-size: cover;
-    height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    overflow: hidden;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: rgba(11, 14, 20, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
 }
 
-.overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    z-index: 1;
-}
-
-.container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
-}
-
-/* İstediğin o havalı Başlık Stili */
-.main-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    letter-spacing: 4px;
-    margin-bottom: 10px;
-    color: #e50914; /* Netflix Kırmızısı */
-    text-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
-}
-
-.genre-container {
-    margin-bottom: 25px;
-}
-
-.genre-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 6px 14px;
-    margin: 4px;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    transition: 0.3s;
-}
-
-.genre-btn.active, .genre-btn:hover {
-    background: #e50914;
-    border-color: #e50914;
-}
-
-/* Film Kartı - Cam Efekti */
-.card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-}
-
-#poster {
-    width: 180px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-}
-
-#title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-#overview {
+.nav-links a {
+    color: var(--secondary-text);
+    text-decoration: none;
+    margin-right: 20px;
     font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.4;
-    opacity: 0.8;
 }
 
-/* Ana Buton */
-#suggest-btn {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    padding: 12px 50px;
-    background-color: #e50914;
+.nav-links a.active {
     color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
-    transition: 0.3s ease;
+    font-weight: 600;
 }
 
-#suggest-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    background-color: #ff0a16;
+/* Hero Section */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 150px;
+    text-align: center;
+}
+
+.logo-text {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.subtitle {
+    color: var(--secondary-text);
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.subtitle span {
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+/* Butonlar */
+.main-actions {
+    margin: 40px 0;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.btn-secondary {
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* Filtreleme Alanı */
+.filter-box {
+    background: #1f2937;
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+select, .btn-suggest {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #374151;
+    color: white;
+    outline: none;
+}
+
+.btn-suggest {
+    background: #6366f1;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* API Notu */
+.api-note {
+    background: rgba(31, 41, 55, 0.5);
+    padding: 15px 30px;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    max-width: 600px;
 }
