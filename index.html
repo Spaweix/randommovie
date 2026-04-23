@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="overlay"></div> 
+    
     <nav class="navbar">
         <div class="nav-links">
             <a href="#" class="active">Ana Sayfa</a>
@@ -16,7 +18,7 @@
             <a href="#">AI Önerileri</a>
         </div>
         <div class="nav-auth">
-            <button class="dark-mode-toggle">Koyu Tema</button>
+            <button class="dark-mode-btn">Koyu Tema</button>
         </div>
     </nav>
 
@@ -49,18 +51,9 @@
                 <option value="">Platform seçiniz</option>
                 <option value="netflix">Netflix</option>
                 <option value="disney">Disney+</option>
-                <option value="prime">Prime Video</option>
             </select>
 
             <button id="suggest-btn" class="btn-suggest">Film öner</button>
-        </div>
-
-        <div id="result-container" class="result-card" style="display: none;">
-            <img id="movie-poster" src="" alt="">
-            <div class="movie-info">
-                <h2 id="movie-title"></h2>
-                <p id="movie-desc"></p>
-            </div>
         </div>
 
         <div class="api-note">
