@@ -1,11 +1,4 @@
-:root {
-    --bg-color: #0b0e14;
-    --card-bg: #161b22;
-    --primary-gradient: linear-gradient(90deg, #8a2be2, #4b0082);
-    --text-color: #ffffff;
-    --secondary-text: #9ca3af;
-}
-
+/* Genel Sıfırlama */
 * {
     margin: 0;
     padding: 0;
@@ -14,58 +7,89 @@
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
+    background-color: #0b0e14;
+    color: #ffffff;
+    height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Navbar */
+/* Arka Plan Karartma Efekti */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(31, 41, 55, 0.2) 0%, #0b0e14 100%);
+    z-index: 1;
+}
+
+/* Üst Menü */
 .navbar {
+    position: relative;
+    z-index: 10;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px 50px;
-    background: rgba(11, 14, 20, 0.8);
-    backdrop-filter: blur(10px);
-    position: fixed;
-    width: 100%;
-    z-index: 100;
 }
 
 .nav-links a {
-    color: var(--secondary-text);
+    color: #9ca3af;
     text-decoration: none;
     margin-right: 20px;
     font-size: 0.9rem;
+    transition: 0.3s;
 }
 
-.nav-links a.active {
+.nav-links a.active, .nav-links a:hover {
+    color: #fff;
+}
+
+.dark-mode-btn {
+    background: #1f2937;
+    border: 1px solid #374151;
     color: white;
-    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-/* Hero Section */
+/* Ana İçerik Alanı */
 .hero {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 150px;
+    flex-grow: 1;
     text-align: center;
+    padding: 0 20px;
 }
 
+/* Degrade Logo Yazısı */
 .logo-text {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 800;
-    background: linear-gradient(to right, #a78bfa, #f472b6);
+    background: linear-gradient(90deg, #a78bfa, #f472b6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
+    margin: 0 10px;
+}
+
+.sparkle {
+    font-size: 2rem;
+    vertical-align: middle;
 }
 
 .subtitle {
-    color: var(--secondary-text);
-    margin-top: 20px;
-    line-height: 1.6;
+    color: #9ca3af;
+    margin: 20px 0;
+    font-size: 1.1rem;
 }
 
 .subtitle span {
@@ -73,63 +97,69 @@ body {
     font-weight: 600;
 }
 
-/* Butonlar */
+/* Buton Grupları */
 .main-actions {
-    margin: 40px 0;
+    margin-bottom: 40px;
 }
 
 .btn-primary {
-    background: var(--primary-gradient);
-    border: none;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
     color: white;
-    padding: 12px 30px;
+    border: none;
+    padding: 15px 35px;
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     margin-right: 15px;
+    transition: 0.3s;
 }
 
 .btn-secondary {
     background: #1f2937;
     border: 1px solid #374151;
     color: white;
-    padding: 12px 30px;
+    padding: 15px 35px;
     border-radius: 12px;
     cursor: pointer;
 }
 
-/* Filtreleme Alanı */
+/* Filtre Çubuğu (Görseldeki gibi yan yana) */
 .filter-box {
-    background: #1f2937;
+    background: #111827;
     padding: 10px;
     border-radius: 12px;
     display: flex;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    border: 1px solid #1f2937;
 }
 
-select, .btn-suggest {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    background: #374151;
+select {
+    padding: 12px 20px;
+    background: #1f2937;
     color: white;
-    outline: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .btn-suggest {
-    background: #6366f1;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
 }
 
-/* API Notu */
+/* Bilgi Kutusu */
 .api-note {
-    background: rgba(31, 41, 55, 0.5);
+    background: rgba(31, 41, 55, 0.4);
     padding: 15px 30px;
-    border-radius: 8px;
+    border-radius: 10px;
     border-left: 4px solid #3b82f6;
-    font-size: 0.8rem;
-    color: var(--secondary-text);
     max-width: 600px;
+    font-size: 0.85rem;
+    color: #9ca3af;
 }
