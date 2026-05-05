@@ -75,20 +75,15 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); align-items: center; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 700px;
 }
 .light-mode .filter-box { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0,0,0,0.1); }
-select, #search-input, #ai-prompt { 
+select, #search-input { 
     padding: 14px 20px; background: var(--select-bg); color: var(--text-color); 
     border: 1px solid rgba(156, 163, 175, 0.3); border-radius: 12px; outline: none; transition: 0.3s; font-size: 1rem; 
 }
 #search-input { flex-grow: 1; }
-#ai-prompt { width: 100%; resize: none; font-family: 'Inter', sans-serif; }
-select:focus, #search-input:focus, #ai-prompt:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+select:focus, #search-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
 
 .btn-suggest { background: var(--primary-blue); color: white; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; }
 .btn-suggest:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
-
-/* Yapay Zeka Butonu */
-.ai-btn-special { background: linear-gradient(90deg, #8b5cf6, var(--primary-blue)); width: 100%; }
-.ai-btn-special:hover { background: linear-gradient(90deg, #7c3aed, #2563eb); }
 
 /* Film Sonuç Kartı */
 .result-card {
@@ -114,26 +109,16 @@ select:focus, #search-input:focus, #ai-prompt:focus { border-color: var(--primar
 .grid-item img { width: 100%; height: 210px; object-fit: cover; }
 .grid-item h3 { font-size: 0.9rem; margin: 10px 5px 5px; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Risella İmzası ve Tema Butonu */
+.nav-auth { display: flex; align-items: center; gap: 15px; }
+.brand-risella { font-family: 'Georgia', serif; font-size: 1.4rem; font-weight: 800; color: var(--primary-blue); font-style: italic; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(59, 130, 246, 0.4); }
+.brand-risella .heart { font-style: normal; font-size: 1.2rem; }
 .dark-mode-btn { background: var(--filter-bg); color: var(--text-color); border: 1px solid var(--subtitle-color); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
 .dark-mode-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
-/* Risella İmzası Tasarımı */
-.nav-auth {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Yazı ile buton arasındaki boşluk */
-}
 
-.brand-risella {
-    font-family: 'Georgia', serif; /* Farklı, şık ve zarif bir yazı stili */
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--primary-blue);
-    font-style: italic;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 10px rgba(59, 130, 246, 0.4); /* Hafif mavi parlama efekti */
-}
-
-.brand-risella .heart {
-    font-style: normal; /* Emojinin eğik durmaması için */
-    font-size: 1.2rem;
-}
+/* Akıllı Asistan Tasarımı */
+.ai-box { display: flex; flex-direction: column; align-items: stretch; gap: 15px; }
+.question-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.question-group label { color: var(--light-blue); font-weight: 600; font-size: 0.95rem; }
+.ai-btn-special { background: linear-gradient(90deg, #8b5cf6, var(--primary-blue)); width: 100%; }
+.ai-btn-special:hover { background: linear-gradient(90deg, #7c3aed, #2563eb); }
