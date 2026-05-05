@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Arka Plan Efektleri -->
     <div class="star"></div>
     <div class="star"></div>
     <div class="star"></div>
@@ -40,12 +39,13 @@
             <span>kişiselleştirilmiş film önerileri</span> alın.
         </p>
 
+        <!-- Butonlar Artık Aktif -->
         <div class="main-actions">
-            <button class="btn-primary">✨ Film Önerileri</button>
-            <button class="btn-secondary">🔍 Platform Araması</button>
+            <button id="scroll-to-suggest" class="btn-primary">✨ Film Önerileri</button>
+            <button id="scroll-to-search" class="btn-secondary">🔍 Platform Araması</button>
         </div>
 
-        <div class="filter-box">
+        <div class="filter-box" id="main-filter-box">
             <select id="genre-select">
                 <option value="">Tür seçiniz</option>
                 <option value="28">Aksiyon</option>
