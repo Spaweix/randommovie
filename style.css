@@ -1,4 +1,3 @@
-/* 1. Değişkenleri ve Temaları Tanımlıyoruz */
 :root {
     --bg-color: #0b0e14;
     --text-color: #ffffff;
@@ -6,143 +5,96 @@
     --filter-bg: #111827;
     --select-bg: #1f2937;
     --subtitle-color: #9ca3af;
-    --nav-link-color: #9ca3af;
+    --nav-link: #9ca3af;
 }
 
 .light-mode {
     --bg-color: #f3f4f6;
-    --text-color: #111827; /* Açık modda yazılar koyu gri/siyah olsun */
+    --text-color: #111827;
     --card-bg: #ffffff;
     --filter-bg: #e5e7eb;
     --select-bg: #ffffff;
     --subtitle-color: #4b5563;
-    --nav-link-color: #1f2937;
+    --nav-link: #1f2937;
 }
 
-/* 2. Genel Ayarlar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color); /* Tüm vücut yazı rengi artık değişken! */
+    color: var(--text-color);
     min-height: 100vh;
     transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
 }
 
-/* Overlay Açık Modda Görünmesin */
-.overlay {
+/* Başlık Renk Akışı */
+.logo-text {
+    font-size: 4.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #a78bfa, #f472b6, #6366f1, #a78bfa);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: flow 3s linear infinite;
+    display: inline-block;
+}
+
+@keyframes flow { to { background-position: 200% center; } }
+
+/* Kayan Yıldızlar */
+.star {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: -10%; width: 2px; height: 50px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+    z-index: 2; filter: drop-shadow(0 0 6px #fff);
+    animation: fall 4s infinite linear;
+    opacity: 0;
+}
+.star:nth-child(1) { left: 15%; animation-delay: 0s; }
+.star:nth-child(2) { left: 45%; animation-delay: 1.2s; animation-duration: 3s; }
+.star:nth-child(3) { left: 70%; animation-delay: 2s; }
+.star:nth-child(4) { left: 90%; animation-delay: 0.5s; animation-duration: 5s; }
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(35deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(35deg); opacity: 0; }
+}
+
+.light-mode .star { display: none; }
+
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at center, rgba(31, 41, 55, 0.2) 0%, #0b0e14 100%);
     z-index: 1;
 }
 .light-mode .overlay { display: none; }
 
-/* 3. Navbar Ayarları */
-.navbar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-}
+.navbar, .hero { position: relative; z-index: 10; }
+.navbar { display: flex; justify-content: space-between; padding: 20px 50px; }
+.nav-links a { color: var(--nav-link); text-decoration: none; margin-right: 20px; transition: 0.3s; }
+.nav-links a.active { color: var(--text-color); font-weight: 600; }
 
-.nav-links a {
-    color: var(--nav-link-color); /* Menü yazıları da değişsin */
-    text-decoration: none;
-    margin-right: 20px;
-    transition: 0.3s;
-}
+.hero { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; text-align: center; }
+.subtitle { color: var(--subtitle-color); margin: 20px 0; }
+.subtitle span { color: #a78bfa; font-weight: 600; }
 
-.nav-links a.active, .nav-links a:hover {
-    color: var(--text-color);
-}
-
-/* 4. Hero ve Yazılar */
-.hero {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.logo-text {
-    font-size: 4rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #a78bfa, #f472b6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-}
-
-.subtitle {
-    color: var(--subtitle-color); /* Alt başlık rengi değişken oldu */
-    margin: 20px 0;
-}
-
-/* 5. Filtreleme ve Seçimler */
 .filter-box {
-    background: var(--filter-bg);
-    padding: 15px;
-    border-radius: 15px;
-    display: flex;
-    gap: 15px;
-    margin: 30px 0;
-    border: 1px solid var(--select-bg);
+    background: var(--filter-bg); padding: 15px; border-radius: 15px;
+    display: flex; gap: 15px; margin: 30px 0; border: 1px solid var(--select-bg);
 }
 
-select {
-    padding: 12px 20px;
-    background: var(--select-bg);
-    color: var(--text-color); /* Kutuların içindeki yazılar da değişsin */
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 10px;
-}
+select { padding: 12px 20px; background: var(--select-bg); color: var(--text-color); border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; }
+.btn-suggest { background: #4f46e5; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 600; cursor: pointer; }
 
-.btn-suggest {
-    background: #4f46e5;
-    color: white; /* Bu buton her zaman beyaz yazılı kalsın, daha şık durur */
-    border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* 6. Film Sonuç Kartı */
 .result-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 20px;
-    padding: 25px;
-    max-width: 700px;
-    margin-top: 30px;
-    display: none;
-    gap: 25px;
-    text-align: left;
-    color: var(--text-color); /* Kart içindeki film adı ve açıklaması değişsin */
+    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 25px; max-width: 700px;
+    margin-top: 30px; display: none; gap: 25px; text-align: left;
 }
-
 #movie-poster { width: 180px; border-radius: 12px; }
 .movie-info h2 { color: #a78bfa; margin-bottom: 15px; }
 
-/* Tema Değiştirme Butonu Tasarımı */
-.dark-mode-btn {
-    background: var(--filter-bg);
-    color: var(--text-color);
-    border: 1px solid var(--subtitle-color);
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-}
+.dark-mode-btn { background: var(--filter-bg); color: var(--text-color); border: 1px solid var(--subtitle-color); padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+.api-note { margin-top: 50px; color: var(--subtitle-color); font-size: 0.8rem; }
