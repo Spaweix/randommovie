@@ -18,7 +18,7 @@
     <nav class="navbar">
         <div class="nav-links">
             <a href="#" class="active">Ana Sayfa</a>
-            <a href="#">Arama</a>
+            <a href="#" id="nav-search">Arama</a>
             <a href="#">Film Listeleri</a>
             <a href="#">AI Önerileri</a>
         </div>
@@ -39,12 +39,13 @@
             <span>kişiselleştirilmiş film önerileri</span> alın.
         </p>
 
-        <!-- Butonlar Artık Aktif -->
-        <div class="main-actions">
-            <button id="scroll-to-suggest" class="btn-primary">✨ Film Önerileri</button>
-            <button id="scroll-to-search" class="btn-secondary">🔍 Platform Araması</button>
+        <!-- Arama Kutusu (Menüden Tıklanınca Açılır) -->
+        <div id="search-box" class="filter-box" style="display: none; margin-bottom: 10px;">
+            <input type="text" id="search-input" placeholder="Film adı yazın (Örn: Inception)...">
+            <button id="search-btn" class="btn-suggest">🔍 Ara</button>
         </div>
 
+        <!-- Rastgele Film Öneri Kutusu -->
         <div class="filter-box" id="main-filter-box">
             <select id="genre-select">
                 <option value="">Tür seçiniz</option>
@@ -71,19 +72,17 @@
             <select id="platform-select">
                 <option value="">Platform seçiniz</option>
                 <option value="netflix">Netflix</option>
-                <option value="disney">Disney+</option>
                 <option value="prime">Prime Video</option>
-                <option value="hbo">HBO Max</option>
+                <option value="disney">Disney+</option>
                 <option value="apple">Apple TV+</option>
-                <option value="exxen">Exxen</option>
                 <option value="mubi">Mubi</option>
                 <option value="blutv">BluTV</option>
-                <option value="gain">Gain</option>
             </select>
 
             <button id="suggest-btn" class="btn-suggest">Film öner</button>
         </div>
 
+        <!-- Film Sonuç Kartı -->
         <div id="result-container" class="result-card">
             <img id="movie-poster" src="" alt="Film Afişi">
             <div class="movie-info">
