@@ -16,12 +16,12 @@
             <a href="#" id="nav-home" class="active">Ana Sayfa</a>
             <a href="#" id="nav-search">Arama</a>
             <a href="#" id="nav-lists">Film Listeleri</a>
-            <a href="#" id="nav-ai">AI Önerileri</a>
+            <a href="#" id="nav-ai">Akıllı Asistan</a>
         </div>
-<div class="nav-auth">
-    <span class="brand-risella">Risella <span class="heart">💙</span></span>
-    <button id="theme-toggle" class="dark-mode-btn">Açık Tema</button>
-</div>
+        <div class="nav-auth">
+            <span class="brand-risella">Risella <span class="heart">💙</span></span>
+            <button id="theme-toggle" class="dark-mode-btn">Açık Tema</button>
+        </div>
     </nav>
 
     <main class="hero">
@@ -33,7 +33,7 @@
 
         <!-- 1. ANA SAYFA BÖLÜMÜ -->
         <div id="home-section" class="page-section">
-            <p class="subtitle">Şahsi film öneri platformum.<br><span>Kişiselleştirilmiş film önerileri</span> al.</p>
+            <p class="subtitle">Türkiye'nin en kapsamlı film öneri platformu.<br><span>Kişiselleştirilmiş film önerileri</span> alın.</p>
 
             <div id="search-box" class="filter-box" style="display: none; margin-bottom: 10px;">
                 <input type="text" id="search-input" placeholder="Film adı yazın (Örn: Inception)...">
@@ -70,17 +70,44 @@
             <div id="movie-grid" class="movie-grid"></div>
         </div>
 
-        <!-- 3. AI ÖNERİLERİ BÖLÜMÜ -->
+        <!-- 3. AKILLI ASİSTAN BÖLÜMÜ -->
         <div id="ai-section" class="page-section" style="display: none;">
-            <p class="subtitle">Nasıl bir film izlemek istiyorsun? Yapay zekaya anlat!</p>
+            <p class="subtitle">Nasıl bir ruh halindesin? Seçimlerini yap, nokta atışı filmini bulayım.</p>
             <div class="filter-box ai-box">
-                <textarea id="ai-prompt" placeholder="Örn: Uzayda geçen, sonunda çok şaşırtan, beyin yakan bir bilim kurgu filmi arıyorum..." rows="3"></textarea>
-                <button id="ai-btn" class="btn-suggest ai-btn-special">✨ AI'a Sor</button>
+                
+                <div class="question-group">
+                    <label>1. Şu an neye ihtiyacın var?</label>
+                    <select id="mood-select">
+                        <option value="">Seçim yap...</option>
+                        <option value="35">Kahkaha atmaya (Komedi)</option>
+                        <option value="18,10749">Duygulanmaya (Dram/Romantik)</option>
+                        <option value="28,53">Adrenalin patlamasına (Aksiyon/Gerilim)</option>
+                        <option value="878,9648">Beyin yakmaya (Bilim Kurgu/Gizem)</option>
+                    </select>
+                </div>
+
+                <div class="question-group">
+                    <label>2. Filmin yaşı nasıl olsun?</label>
+                    <select id="era-select">
+                        <option value="">Farketmez</option>
+                        <option value="classic">Eski Klasikler (2010 Öncesi)</option>
+                        <option value="modern">Yeni ve Popüler (2015 Sonrası)</option>
+                    </select>
+                </div>
+
+                <div class="question-group">
+                    <label>3. Puan beklentin nedir?</label>
+                    <select id="rating-select">
+                        <option value="6">Çerezlik izlenir (6.0+ Puan)</option>
+                        <option value="8">Kesinlikle Başyapıt (8.0+ Puan)</option>
+                    </select>
+                </div>
+
+                <button id="smart-btn" class="btn-suggest ai-btn-special">✨ Sihirli Filmi Bul</button>
             </div>
-            <p id="ai-loading" style="display: none; color: var(--primary-blue); font-weight: bold;">Yapay zeka düşünüyor...</p>
         </div>
 
-        <!-- ORTAK FİLM SONUÇ KARTI (Arama, Öneri ve AI için) -->
+        <!-- ORTAK FİLM SONUÇ KARTI -->
         <div id="result-container" class="result-card">
             <img id="movie-poster" src="" alt="Film Afişi">
             <div class="movie-info">
@@ -90,6 +117,6 @@
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
