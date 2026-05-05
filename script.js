@@ -10,6 +10,22 @@ const moviePoster = document.getElementById('movie-poster');
 const movieTitle = document.getElementById('movie-title');
 const movieDesc = document.getElementById('movie-desc');
 
+// Butonları Aktifleştirme (Aşağı Kaydırma)
+const btnScrollSuggest = document.getElementById('scroll-to-suggest');
+const btnScrollSearch = document.getElementById('scroll-to-search');
+const filterBox = document.getElementById('main-filter-box');
+const platformSelect = document.getElementById('platform-select');
+
+btnScrollSuggest.addEventListener('click', () => {
+    filterBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => genreSelect.focus(), 500); // Kutuyu seçili hale getir
+});
+
+btnScrollSearch.addEventListener('click', () => {
+    filterBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => platformSelect.focus(), 500); // Kutuyu seçili hale getir
+});
+
 // Tema Kontrolü
 if (localStorage.getItem('theme') === 'light') {
     document.body.classList.add('light-mode');
@@ -36,10 +52,12 @@ suggestBtn.addEventListener('click', async () => {
         if (data.results.length > 0) {
             const movie = data.results[Math.floor(Math.random() * data.results.length)];
             movieTitle.innerText = movie.title;
-            movieDesc.innerText = movie.overview || "Açıklama bulunamadı.";
-            moviePoster.src = movie.poster_path ? IMG_URL + movie.poster_path : "https://via.placeholder.com/200x300";
+            movieDesc.innerText = movie.overview || "Bu film için Türkçe açıklama bulunamadı.";
+            moviePoster.src = movie.poster_path ? IMG_URL + movie.poster_path : "https://via.placeholder.com/200x300?text=Afiş+Yok";
             resultContainer.style.display = 'flex';
-            resultContainer.scrollIntoView({ behavior: 'smooth' });
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            alert("Uygun film bulunamadı.");
         }
     } catch (err) {
         alert("Bağlantı hatası oluştu.");
