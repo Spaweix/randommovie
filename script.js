@@ -5,25 +5,25 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const suggestBtn = document.getElementById('suggest-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const genreSelect = document.getElementById('genre-select');
+const platformSelect = document.getElementById('platform-select'); // Platform kutucuğunu yakaladık
 const resultContainer = document.getElementById('result-container');
 const moviePoster = document.getElementById('movie-poster');
 const movieTitle = document.getElementById('movie-title');
 const movieDesc = document.getElementById('movie-desc');
 
-// Butonları Aktifleştirme (Aşağı Kaydırma)
+// Aşağı Kaydırma Butonları
 const btnScrollSuggest = document.getElementById('scroll-to-suggest');
 const btnScrollSearch = document.getElementById('scroll-to-search');
 const filterBox = document.getElementById('main-filter-box');
-const platformSelect = document.getElementById('platform-select');
 
 btnScrollSuggest.addEventListener('click', () => {
     filterBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => genreSelect.focus(), 500); // Kutuyu seçili hale getir
+    setTimeout(() => genreSelect.focus(), 500);
 });
 
 btnScrollSearch.addEventListener('click', () => {
     filterBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => platformSelect.focus(), 500); // Kutuyu seçili hale getir
+    setTimeout(() => platformSelect.focus(), 500);
 });
 
 // Tema Kontrolü
@@ -39,17 +39,42 @@ themeToggle.addEventListener('click', () => {
     themeToggle.innerText = isLight ? 'Koyu Tema' : 'Açık Tema';
 });
 
-// Film Önerisi
+// Platform ID Eşleştirmeleri (TMDb Türkiye Verileri)
+const providers = {
+    'netflix': 8,
+    'prime': 119,
+    'disney': 337,
+    'apple': 350,
+    'mubi': 11,
+    'blutv': 341
+    // Not: Exxen ve Gain gibi yerel platformlar global TMDb API'sinde düzenli veri sağlamadığı için en stabil olanları eşleştirdik.
+};
+
+// Film Önerisi (Artık Hem Tür Hem Platform Filtreliyor)
 suggestBtn.addEventListener('click', async () => {
     const genre = genreSelect.value;
-    const page = Math.floor(Math.random() * 20) + 1;
+    const platform = platformSelect.value;
+    
+    // Filtreler daraldığı için boş sayfa gelme ihtimaline karşı sayfa aralığını daraltıyoruz
+    const page = Math.floor(Math.random() * 5) + 1; 
+    
     let url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=tr-TR&sort_by=popularity.desc&page=${page}`;
-    if (genre) url += `&with_genres=${genre}`;
+    
+    // Eğer Tür seçildiyse URL'ye ekle
+    if (genre) {
+        url += `&with_genres=${genre}`;
+    }
+    
+    // Eğer Platform seçildiyse URL'ye ekle (Türkiye bölgesi filtrelemesiyle birlikte)
+    if (platform && providers[platform]) {
+        url += `&with_watch_providers=${providers[platform]}&watch_region=TR`;
+    }
 
     try {
         const res = await fetch(url);
         const data = await res.json();
-        if (data.results.length > 0) {
+        
+        if (data.results && data.results.length > 0) {
             const movie = data.results[Math.floor(Math.random() * data.results.length)];
             movieTitle.innerText = movie.title;
             movieDesc.innerText = movie.overview || "Bu film için Türkçe açıklama bulunamadı.";
@@ -57,9 +82,10 @@ suggestBtn.addEventListener('click', async () => {
             resultContainer.style.display = 'flex';
             resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            alert("Uygun film bulunamadı.");
+            alert("Seçtiğin kriterlerde (Tür ve Platform kombinasyonu) film bulamadık. Lütfen farklı seçenekler dene!");
         }
     } catch (err) {
+        console.error("Hata Detayı:", err);
         alert("Bağlantı hatası oluştu.");
     }
 });
