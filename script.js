@@ -1,6 +1,5 @@
 // API ANAHTARLARI
 const TMDB_API_KEY = '32757d8e9c622dea1b16b754cf9a56cc'; 
-const GEMINI_API_KEY = 'AIzaSyCpK4XCrEpncmE9boYKEmH0hqPj8zjT0-U'; 
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -24,16 +23,13 @@ const movieDesc = document.getElementById('movie-desc');
 
 // --- SAYFA GEÇİŞ (NAVİGASYON) MANTIĞI ---
 function switchSection(activeKey) {
-    // Tüm sekmeleri gizle
     Object.values(sections).forEach(sec => sec.style.display = 'none');
     Object.values(navLinks).forEach(link => link.classList.remove('active'));
-    resultContainer.style.display = 'none'; // Sonuçları temizle
+    resultContainer.style.display = 'none'; 
     
-    // Seçileni göster
     sections[activeKey].style.display = 'flex';
     navLinks[activeKey].classList.add('active');
 
-    // Eğer listeler açıldıysa, ilk veriyi çek
     if (activeKey === 'lists') loadMovieList('popular');
 }
 
@@ -42,7 +38,6 @@ navLinks.lists.addEventListener('click', () => switchSection('lists'));
 navLinks.ai.addEventListener('click', () => switchSection('ai'));
 
 // --- ANA SAYFA (ARAMA VE ÖNERİ) ---
-// Arama Menüsü Aç/Kapat
 document.getElementById('nav-search').addEventListener('click', (e) => {
     e.preventDefault();
     switchSection('home');
@@ -55,7 +50,6 @@ document.getElementById('nav-search').addEventListener('click', (e) => {
     }
 });
 
-// Arama Motoru
 async function searchMovie() {
     const query = document.getElementById('search-input').value.trim();
     if (!query) {
@@ -81,7 +75,6 @@ document.getElementById('search-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') searchMovie();
 });
 
-// Kutu Önerileri (Platform ve Tür Filtreli)
 const providers = {
     'netflix': 8,
     'prime': 119,
@@ -135,7 +128,6 @@ async function loadMovieList(type) {
                 <img src="${movie.poster_path ? IMG_URL + movie.poster_path : 'https://via.placeholder.com/150x225?text=Afiş+Yok'}" alt="${movie.title}">
                 <h3>${movie.title}</h3>
             `;
-            // Filme tıklayınca detayı aşağıda açsın
             div.addEventListener('click', () => {
                 showMovieData(movie);
                 resultContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -147,50 +139,55 @@ async function loadMovieList(type) {
     }
 }
 
-// --- YAPAY ZEKA (GEMINI API) ---
+// --- YAPAY ZEKA (KENDİ SİMÜLASYONUMUZ) ---
 document.getElementById('ai-btn').addEventListener('click', async () => {
-    const prompt = document.getElementById('ai-prompt').value.trim();
+    const prompt = document.getElementById('ai-prompt').value.toLowerCase().trim();
     const loadingText = document.getElementById('ai-loading');
     
     if(!prompt) {
-        alert("Lütfen yapay zekaya ne tür bir film istediğini yaz.");
+        alert("Lütfen nasıl bir film istediğini yaz.");
         return;
     }
 
     loadingText.style.display = 'block';
+    loadingText.innerText = "Yazdıkların analiz ediliyor...";
     resultContainer.style.display = 'none';
 
+    // Anahtar kelime yakalama mantığı
+    let selectedGenres = [];
+    if (prompt.includes('uzay') || prompt.includes('gezegen') || prompt.includes('bilim kurgu')) selectedGenres.push(878); 
+    if (prompt.includes('korku') || prompt.includes('kan') || prompt.includes('korkutucu')) selectedGenres.push(27);
+    if (prompt.includes('komik') || prompt.includes('komedi') || prompt.includes('gülmek') || prompt.includes('eğlenceli')) selectedGenres.push(35);
+    if (prompt.includes('aşk') || prompt.includes('romantik') || prompt.includes('sevgili')) selectedGenres.push(10749);
+    if (prompt.includes('aksiyon') || prompt.includes('heyecan') || prompt.includes('dövüş') || prompt.includes('silah')) selectedGenres.push(28);
+    if (prompt.includes('animasyon') || prompt.includes('çizgi') || prompt.includes('anime')) selectedGenres.push(16);
+    if (prompt.includes('dram') || prompt.includes('üzücü') || prompt.includes('ağlamak')) selectedGenres.push(18);
+    if (prompt.includes('gizem') || prompt.includes('katil') || prompt.includes('dedektif') || prompt.includes('zeka')) selectedGenres.push(9648);
+
+    const page = Math.floor(Math.random() * 4) + 1; 
+    let url = `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=tr-TR&sort_by=popularity.desc&page=${page}`;
+    
+    // Kelimelere göre eşleşen türler varsa URL'ye ekle
+    if (selectedGenres.length > 0) {
+        url += `&with_genres=${selectedGenres.join(',')}`;
+    }
+
     try {
-        // 1. AŞAMA: Gemini'ye istek at
-        const aiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        const aiRequest = {
-            contents: [{ parts: [{ text: `Bir film öneri asistanısın. Kullanıcı şu tarz bir film arıyor: "${prompt}". Bu tanıma en uygun, kaliteli 1 tane filmin SADECE İngilizce/orijinal adını yaz. Başka hiçbir kelime, noktalama işareti veya yorum ekleme.` }]}]
-        };
+        const res = await fetch(url);
+        const data = await res.json();
 
-        const aiResponse = await fetch(aiUrl, { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(aiRequest) 
-        });
-        const aiData = await aiResponse.json();
-        
-        const recommendedMovieTitle = aiData.candidates[0].content.parts[0].text.trim();
-
-        // 2. AŞAMA: TMDb'de arat
-        const tmdbUrl = `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=tr-TR&query=${encodeURIComponent(recommendedMovieTitle)}`;
-        const tmdbRes = await fetch(tmdbUrl);
-        const tmdbData = await tmdbRes.json();
-
-        if (tmdbData.results && tmdbData.results.length > 0) {
-            showMovieData(tmdbData.results[0]);
+        if (data.results && data.results.length > 0) {
+            // Bulunanlar arasından rastgele birini göster
+            const movie = data.results[Math.floor(Math.random() * data.results.length)];
+            showMovieData(movie);
         } else {
-            alert(`Yapay zeka "${recommendedMovieTitle}" filmini önerdi ama veritabanımızda bulamadık.`);
+            alert("Sana uygun bir film bulamadık. Kelimeleri değiştirerek tekrar dene.");
         }
     } catch (err) {
-        console.error("Yapay Zeka Hatası:", err);
-        alert("Yapay zeka ile bağlantı kurulamadı. İnternet bağlantını kontrol et veya biraz sonra tekrar dene.");
+        alert("Bağlantı hatası oluştu.");
     } finally {
         loadingText.style.display = 'none';
+        loadingText.innerText = "Yapay zeka düşünüyor..."; // Metni eski haline getir
     }
 });
 
@@ -201,7 +198,6 @@ function showMovieData(movie) {
     moviePoster.src = movie.poster_path ? IMG_URL + movie.poster_path : "https://via.placeholder.com/200x300?text=Afiş+Yok";
     
     resultContainer.style.display = 'flex';
-    // Sonuç kartının görünür olması için sayfayı kaydır
     resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
