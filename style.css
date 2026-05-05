@@ -116,3 +116,24 @@ select:focus, #search-input:focus, #ai-prompt:focus { border-color: var(--primar
 
 .dark-mode-btn { background: var(--filter-bg); color: var(--text-color); border: 1px solid var(--subtitle-color); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
 .dark-mode-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+/* Risella İmzası Tasarımı */
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Yazı ile buton arasındaki boşluk */
+}
+
+.brand-risella {
+    font-family: 'Georgia', serif; /* Farklı, şık ve zarif bir yazı stili */
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    font-style: italic;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(59, 130, 246, 0.4); /* Hafif mavi parlama efekti */
+}
+
+.brand-risella .heart {
+    font-style: normal; /* Emojinin eğik durmaması için */
+    font-size: 1.2rem;
+}
