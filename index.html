@@ -8,19 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
+    <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
     <div class="overlay"></div> 
     
     <nav class="navbar">
         <div class="nav-links">
-            <a href="#" class="active">Ana Sayfa</a>
+            <a href="#" id="nav-home" class="active">Ana Sayfa</a>
             <a href="#" id="nav-search">Arama</a>
-            <a href="#">Film Listeleri</a>
-            <a href="#">AI Önerileri</a>
+            <a href="#" id="nav-lists">Film Listeleri</a>
+            <a href="#" id="nav-ai">AI Önerileri</a>
         </div>
         <div class="nav-auth">
             <button id="theme-toggle" class="dark-mode-btn">Açık Tema</button>
@@ -33,66 +29,63 @@
             <h1 class="logo-text">FilmÖneri</h1>
             <span class="sparkle">✨</span>
         </div>
-        
-        <p class="subtitle">
-            Türkiye'nin en kapsamlı film öneri platformu. Tür ve platform seçerek <br>
-            <span>kişiselleştirilmiş film önerileri</span> alın.
-        </p>
 
-        <!-- Arama Kutusu (Menüden Tıklanınca Açılır) -->
-        <div id="search-box" class="filter-box" style="display: none; margin-bottom: 10px;">
-            <input type="text" id="search-input" placeholder="Film adı yazın (Örn: Inception)...">
-            <button id="search-btn" class="btn-suggest">🔍 Ara</button>
+        <!-- 1. ANA SAYFA BÖLÜMÜ -->
+        <div id="home-section" class="page-section">
+            <p class="subtitle">Türkiye'nin en kapsamlı film öneri platformu.<br><span>Kişiselleştirilmiş film önerileri</span> alın.</p>
+
+            <div id="search-box" class="filter-box" style="display: none; margin-bottom: 10px;">
+                <input type="text" id="search-input" placeholder="Film adı yazın (Örn: Inception)...">
+                <button id="search-btn" class="btn-suggest">🔍 Ara</button>
+            </div>
+
+            <div class="filter-box" id="main-filter-box">
+                <select id="genre-select">
+                    <option value="">Tür seçiniz</option>
+                    <option value="28">Aksiyon</option>
+                    <option value="27">Korku</option>
+                    <option value="878">Bilim Kurgu</option>
+                    <option value="35">Komedi</option>
+                    <option value="18">Dram</option>
+                    <option value="53">Gerilim</option>
+                </select>
+                <select id="platform-select">
+                    <option value="">Platform seçiniz</option>
+                    <option value="netflix">Netflix</option>
+                    <option value="prime">Prime Video</option>
+                    <option value="disney">Disney+</option>
+                </select>
+                <button id="suggest-btn" class="btn-suggest">Film öner</button>
+            </div>
         </div>
 
-        <!-- Rastgele Film Öneri Kutusu -->
-        <div class="filter-box" id="main-filter-box">
-            <select id="genre-select">
-                <option value="">Tür seçiniz</option>
-                <option value="28">Aksiyon</option>
-                <option value="12">Macera</option>
-                <option value="16">Animasyon</option>
-                <option value="35">Komedi</option>
-                <option value="80">Suç</option>
-                <option value="99">Belgesel</option>
-                <option value="18">Dram</option>
-                <option value="10751">Aile</option>
-                <option value="14">Fantastik</option>
-                <option value="36">Tarih</option>
-                <option value="27">Korku</option>
-                <option value="10402">Müzik</option>
-                <option value="9648">Gizem</option>
-                <option value="10749">Romantik</option>
-                <option value="878">Bilim Kurgu</option>
-                <option value="53">Gerilim</option>
-                <option value="10752">Savaş</option>
-                <option value="37">Western</option>
-            </select>
-            
-            <select id="platform-select">
-                <option value="">Platform seçiniz</option>
-                <option value="netflix">Netflix</option>
-                <option value="prime">Prime Video</option>
-                <option value="disney">Disney+</option>
-                <option value="apple">Apple TV+</option>
-                <option value="mubi">Mubi</option>
-                <option value="blutv">BluTV</option>
-            </select>
-
-            <button id="suggest-btn" class="btn-suggest">Film öner</button>
+        <!-- 2. FİLM LİSTELERİ BÖLÜMÜ -->
+        <div id="lists-section" class="page-section" style="display: none;">
+            <div class="list-tabs">
+                <button class="list-tab active" data-type="popular">🔥 Popüler</button>
+                <button class="list-tab" data-type="top_rated">⭐ En İyiler</button>
+                <button class="list-tab" data-type="upcoming">🎬 Yakında</button>
+            </div>
+            <div id="movie-grid" class="movie-grid"></div>
         </div>
 
-        <!-- Film Sonuç Kartı -->
+        <!-- 3. AI ÖNERİLERİ BÖLÜMÜ -->
+        <div id="ai-section" class="page-section" style="display: none;">
+            <p class="subtitle">Nasıl bir film izlemek istiyorsun? Yapay zekaya anlat!</p>
+            <div class="filter-box ai-box">
+                <textarea id="ai-prompt" placeholder="Örn: Uzayda geçen, sonunda çok şaşırtan, beyin yakan bir bilim kurgu filmi arıyorum..." rows="3"></textarea>
+                <button id="ai-btn" class="btn-suggest ai-btn-special">✨ AI'a Sor</button>
+            </div>
+            <p id="ai-loading" style="display: none; color: var(--primary-blue); font-weight: bold;">Yapay zeka düşünüyor...</p>
+        </div>
+
+        <!-- ORTAK FİLM SONUÇ KARTI (Arama, Öneri ve AI için) -->
         <div id="result-container" class="result-card">
             <img id="movie-poster" src="" alt="Film Afişi">
             <div class="movie-info">
                 <h2 id="movie-title"></h2>
                 <p id="movie-desc"></p>
             </div>
-        </div>
-
-        <div class="api-note">
-            <p>Film verileri <strong>The Movie Database (TMDb)</strong> API'si kullanılarak sağlanmaktadır.</p>
         </div>
     </main>
 
