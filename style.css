@@ -23,125 +23,96 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-    overflow-x: hidden;
+    background-color: var(--bg-color); color: var(--text-color);
+    min-height: 100vh; transition: background-color 0.3s, color 0.3s; overflow-x: hidden;
 }
 
-/* Başlık Renk Akışı */
 .logo-text {
-    font-size: 4.5rem;
-    font-weight: 800;
+    font-size: 4.5rem; font-weight: 800;
     background: linear-gradient(to right, #1d4ed8, var(--primary-blue), #93c5fd, #1d4ed8);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: flow 3s linear infinite;
-    display: inline-block;
+    background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: flow 3s linear infinite; display: inline-block;
 }
 @keyframes flow { to { background-position: 200% center; } }
 
-/* Yıldız Efekti */
-.sparkle {
-    display: inline-block;
-    font-size: 3rem;
-    animation: pulse-sparkle 1.5s infinite alternate;
-}
+.sparkle { display: inline-block; font-size: 3rem; animation: pulse-sparkle 1.5s infinite alternate; }
 @keyframes pulse-sparkle {
     0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
     100% { transform: scale(1.2) rotate(15deg); opacity: 1; filter: drop-shadow(0 0 10px var(--light-blue)); }
 }
 
-/* Kayan Yıldızlar */
 .star {
     position: fixed; top: -10%; width: 2px; height: 50px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--light-blue));
-    z-index: 2; filter: drop-shadow(0 0 6px var(--light-blue));
-    animation: fall 4s infinite linear; opacity: 0;
+    z-index: 2; filter: drop-shadow(0 0 6px var(--light-blue)); animation: fall 4s infinite linear; opacity: 0;
 }
 .star:nth-child(1) { left: 15%; animation-delay: 0s; }
 .star:nth-child(2) { left: 45%; animation-delay: 1.2s; animation-duration: 3s; }
 .star:nth-child(3) { left: 70%; animation-delay: 2s; }
 .star:nth-child(4) { left: 90%; animation-delay: 0.5s; animation-duration: 5s; }
-
-@keyframes fall {
-    0% { transform: translateY(0) rotate(35deg); opacity: 0; }
-    10% { opacity: 1; }
-    100% { transform: translateY(110vh) rotate(35deg); opacity: 0; }
-}
-
+@keyframes fall { 0% { transform: translateY(0) rotate(35deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh) rotate(35deg); opacity: 0; } }
 .light-mode .star { display: none; }
 
-.overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, #0b0e14 100%);
-    z-index: 1;
-}
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, #0b0e14 100%); z-index: 1; }
 .light-mode .overlay { display: none; }
 
 .navbar, .hero { position: relative; z-index: 10; }
 .navbar { display: flex; justify-content: space-between; padding: 20px 50px; }
-.nav-links a { color: var(--nav-link); text-decoration: none; margin-right: 20px; transition: 0.3s; }
+.nav-links a { color: var(--nav-link); text-decoration: none; margin-right: 20px; transition: 0.3s; cursor: pointer; }
 .nav-links a.active, .nav-links a:hover { color: var(--primary-blue); font-weight: 600; }
 
-.hero { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; text-align: center; }
-.subtitle { color: var(--subtitle-color); margin: 20px 0; font-size: 1.1rem; }
+.hero { display: flex; flex-direction: column; align-items: center; padding: 40px 20px; text-align: center; }
+.subtitle { color: var(--subtitle-color); margin: 10px 0; font-size: 1.1rem; }
 .subtitle span { color: var(--primary-blue); font-weight: 600; }
 
-/* Kutucuk Tasarımı */
+.page-section { width: 100%; display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.4s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Arama ve Filtre Kutuları */
 .filter-box {
-    background: var(--filter-bg); 
-    padding: 25px 30px; 
-    border-radius: 20px;
-    display: flex; gap: 20px; 
-    margin: 20px 0; 
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    max-width: 700px;
+    background: var(--filter-bg); padding: 25px 30px; border-radius: 20px;
+    display: flex; gap: 20px; margin: 20px 0; border: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); align-items: center; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 700px;
 }
-
 .light-mode .filter-box { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0,0,0,0.1); }
-
-select, #search-input { 
-    padding: 14px 20px; 
-    background: var(--select-bg); 
-    color: var(--text-color); 
-    border: 1px solid rgba(156, 163, 175, 0.3); 
-    border-radius: 12px; 
-    outline: none;
-    transition: 0.3s;
-    font-size: 1rem;
+select, #search-input, #ai-prompt { 
+    padding: 14px 20px; background: var(--select-bg); color: var(--text-color); 
+    border: 1px solid rgba(156, 163, 175, 0.3); border-radius: 12px; outline: none; transition: 0.3s; font-size: 1rem; 
 }
 #search-input { flex-grow: 1; }
-select:focus, select:hover, #search-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+#ai-prompt { width: 100%; resize: none; font-family: 'Inter', sans-serif; }
+select:focus, #search-input:focus, #ai-prompt:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
 
-.btn-suggest { 
-    background: var(--primary-blue); 
-    color: white; border: none; 
-    padding: 14px 30px; 
-    border-radius: 12px; 
-    font-weight: 600; 
-    font-size: 1rem;
-    cursor: pointer; 
-    transition: 0.3s; 
-}
+.btn-suggest { background: var(--primary-blue); color: white; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; }
 .btn-suggest:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
 
+/* Yapay Zeka Butonu */
+.ai-btn-special { background: linear-gradient(90deg, #8b5cf6, var(--primary-blue)); width: 100%; }
+.ai-btn-special:hover { background: linear-gradient(90deg, #7c3aed, #2563eb); }
+
+/* Film Sonuç Kartı */
 .result-card {
     background: var(--card-bg); border: 1px solid rgba(59, 130, 246, 0.2);
     border-radius: 20px; padding: 25px; max-width: 700px; width: 100%;
-    margin-top: 20px; display: none; gap: 25px; text-align: left;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-top: 20px; display: none; gap: 25px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 #movie-poster { width: 180px; border-radius: 12px; }
 .movie-info h2 { color: var(--light-blue); margin-bottom: 15px; }
 
+/* FİLM LİSTELERİ: Grid Tasarımı */
+.list-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.list-tab { background: var(--filter-bg); color: var(--text-color); border: 1px solid rgba(59, 130, 246, 0.3); padding: 10px 20px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+.list-tab.active, .list-tab:hover { background: var(--primary-blue); color: white; }
+
+.movie-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; width: 100%; max-width: 900px; margin-top: 20px;
+}
+.grid-item {
+    background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.05); text-align: center; padding-bottom: 10px;
+}
+.grid-item:hover { transform: translateY(-5px); border-color: var(--primary-blue); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
+.grid-item img { width: 100%; height: 210px; object-fit: cover; }
+.grid-item h3 { font-size: 0.9rem; margin: 10px 5px 5px; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 .dark-mode-btn { background: var(--filter-bg); color: var(--text-color); border: 1px solid var(--subtitle-color); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
 .dark-mode-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
-.api-note { margin-top: 40px; color: var(--subtitle-color); font-size: 0.8rem; }
